@@ -1,2 +1,4 @@
 db/
 simulation/
+output_file/
+incremental_db/
