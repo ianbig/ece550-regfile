@@ -1,4 +1,5 @@
 db/
 simulation/
-output_file/
+output_files/
 incremental_db/
+*.v.bak
