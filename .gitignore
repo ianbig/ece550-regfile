@@ -3,3 +3,4 @@ simulation/
 output_files/
 incremental_db/
 *.v.bak
+regfile_nativelink_simulation.rpt
