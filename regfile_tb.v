@@ -32,10 +32,21 @@ module regfile_tb();
         @(negedge clock);    // wait until next negative edge of clock
 
         // Begin testing... (loop over registers)
-        for(index = 0; index <= 31; index = index + 1) begin
-            writeRegister(index, 32'h0000DEAD);
-            checkRegister(index, 32'h0000DEAD);
+        for(index = 0; index <= 31; index = index + 2) begin
+            writeRegister(index, index);
+            checkRegisterA(index, index);
+				checkRegisterB(index + 1, 0);
         end
+		  
+//		  @(negedge clock);
+//		  ctrl_reset = 1'b1;
+//		  @(negedge clock);
+//		  ctrl_reset = 1'b0;
+//		  @(negedge clock);
+//		  
+//		  for (index = 0; index <= 31; index = index + 1) begin
+//			 checkRegister(index, 32'h00000000);
+//		  end
 
         if (errors == 0) begin
             $display("The simulation completed without errors");
@@ -90,6 +101,46 @@ module regfile_tb();
                 $display("**Error on port A: read %h but expected %h.", data_readRegA, exp);
                 errors = errors + 1;
             end
+
+            if(data_readRegB !== exp) begin
+                $display("**Error on port B: read %h but expected %h.", data_readRegB, exp);
+                errors = errors + 1;
+            end
+        end
+    endtask
+	 
+	 task checkRegisterA;
+
+        input [4:0] checkReg;
+        input [31:0] exp;
+
+        begin
+            @(negedge clock);    // wait for next negedge of clock
+
+            ctrl_readRegA = checkReg;    // test port A
+  
+
+            @(negedge clock); // wait for next negedge, read should be done
+
+            if(data_readRegA !== exp) begin
+                $display("**Error on port A: read %h but expected %h.", data_readRegA, exp);
+                errors = errors + 1;
+            end
+        end
+    endtask
+	 
+	 task checkRegisterB;
+
+        input [4:0] checkReg;
+        input [31:0] exp;
+
+        begin
+            @(negedge clock);    // wait for next negedge of clock
+
+            ctrl_readRegB = checkReg;    // test port B
+
+            @(negedge clock); // wait for next negedge, read should be done
+
 
             if(data_readRegB !== exp) begin
                 $display("**Error on port B: read %h but expected %h.", data_readRegB, exp);
