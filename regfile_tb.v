@@ -37,6 +37,7 @@ module regfile_tb();
             checkRegisterA(index, index);
 				checkRegisterB(index + 1, 0);
         end
+
 		  
 //		  @(negedge clock);
 //		  ctrl_reset = 1'b1;

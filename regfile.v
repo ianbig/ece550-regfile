@@ -26,7 +26,7 @@ module regfile (
 	endgenerate
 	
 	
-	register_32bit reg_0(regOut[0], data_writeReg, clock, selEn[0], ctrl_reset);
+	register_32bit reg_0(regOut[0],32'b0, clock, selEn[0], ctrl_reset);
 	register_32bit reg_1(regOut[1], data_writeReg, clock, selEn[1], ctrl_reset);
 	register_32bit reg_2(regOut[2], data_writeReg, clock, selEn[2], ctrl_reset);
 	register_32bit reg_3(regOut[3], data_writeReg, clock, selEn[3], ctrl_reset);
