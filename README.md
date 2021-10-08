@@ -39,6 +39,10 @@
 * one of the output from tri-state buffer would be value and other outputs are z
 * decoder select tri-state buffer which makes value
 * we can read two data at the same time from register file
+### Timing issue
+* Refister file works well at 20ns clock period
+* The maximum clock period is 19ns
+* If clock period is faster than 19ns, then the result of read port would be incorrect at same clock cycle
 ## Test Cases
 * write enable signal
     * if 1 then it should write
